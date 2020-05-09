@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_thunder.wav &
+slock
+[[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_door_opens.wav &

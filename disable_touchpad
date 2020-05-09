@@ -1,0 +1,4 @@
+#!/bin/sh
+xinput --disable `xinput list | grep -i TouchPad | sed -E 's/.*id=([0-9]+).*/\1/g'`
+xinput --disable `xinput list | grep -i Synaptics | sed -E 's/.*id=([0-9]+).*/\1/g'`
+

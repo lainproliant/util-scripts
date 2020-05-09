@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+POWER_SUPPLY_ROOT = '/sys/class/power_supply'
+CAPACITY_FILE = 'capacity'
+STATUS_FILE = 'status'
+
+def read_battery_file(battery, filename):
+    with open(os.path.join(POWER_SUPPLY_ROOT, battery, filename)) as infile:
+        return infile.read()
+
+def get_battery_capacity(battery):
+    return int(read_battery_file(battery, CAPACITY_FILE))
+
+def get_battery_status(battery):
+    return read_battery_file(battery, STATUS_FILE).strip()
+
+def get_status_symbol(status):
+    STATUS_SYMBOL_MAP = {
+        'Charging':     '+',
+        'Discharging':  '-',
+        'Full':         '='
+    }
+
+    UNKNOWN_SYMBOL = '?'
+
+    return STATUS_SYMBOL_MAP.get(status, UNKNOWN_SYMBOL)
+
+def format_battery_status(battery):
+    return '%s%d%%' % (
+            get_status_symbol(get_battery_status(battery)), get_battery_capacity(battery))
+
+def main(argv):
+    dirnames = next(os.walk(POWER_SUPPLY_ROOT))[1]
+    batteries = []
+
+    for dirname in dirnames:
+        if 'BAT' in dirname:
+            batteries.append(dirname)
+
+    print(' '.join([format_battery_status(b) for b in batteries]))
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

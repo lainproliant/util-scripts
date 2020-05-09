@@ -1,0 +1,4 @@
+#!/bin/bash
+while optimus-manager --status | grep Current | grep nvidia; do
+   sleep infinity
+done

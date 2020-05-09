@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+
+import subprocess
+import traceback
+import sys
+import time
+
+# -------------------------------------------------------------------
+circle_numbers = "0❶❷❸❹❺❻❼❽❾"
+
+
+# -------------------------------------------------------------------
+def xrdb_query():
+    resources = {}
+    output = subprocess.check_output(['xrdb', '-query']).decode('utf-8')
+    lines = [x for x in output.split('\n') if x]
+
+    for line in lines:
+        key, value, *_ = (s.strip() for s in line.split(':'))
+        resources[key] = value
+
+    return resources
+
+
+# -------------------------------------------------------------------
+X11R = xrdb_query()
+
+
+# -------------------------------------------------------------------
+def active(s):
+    return f"%{{F{X11R['*_base06']}}}{s}%{{F-}}"
+
+
+# -------------------------------------------------------------------
+def focused(s):
+    return f"%{{F{X11R['*_base08']}}}{s}%{{F-}}"
+
+
+# -------------------------------------------------------------------
+def digestWorkspaces(workspaces):
+    results = []
+    items = workspaces.split(" ")
+
+    for item in items:
+        if not item:
+            continue
+        if item.startswith("["):
+            results.append(focused(circle_numbers[int(item[1])]))
+        elif item.startswith("<"):
+            results.append(active(circle_numbers[int(item[1])]))
+        else:
+            results.append(circle_numbers[int(item)])
+
+    return f" {' '.join(results)}"
+
+
+# -------------------------------------------------------------------
+def digestXMonadLogLine(line):
+    try:
+        workspaces = line.split(":")[0]
+        print(digestWorkspaces(workspaces))
+        sys.stdout.flush()
+
+    except Exception:
+        traceback.print_exc()
+
+
+# -------------------------------------------------------------------
+def main():
+    proc = subprocess.Popen(["xmonad-log"], stdout=subprocess.PIPE, shell=False)
+
+    while True:
+        line = proc.stdout.readline()
+        if not line:
+            break
+        digestXMonadLogLine(line.decode("utf-8"))
+
+
+# -------------------------------------------------------------------
+if __name__ == "__main__":
+    main()

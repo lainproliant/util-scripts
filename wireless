@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set WLAN_IFACE=wlp4s0
+
+essid=`iwconfig $WLAN_IFACE | awk -F '"' '/ESSID/ {print $2}'`
+strength=`iwconfig $WLAN_IFACE | grep Quality | sed 's/.*Quality=\(.*\)\/\(.*\)  Signal.*/\1 \2/' | awk '{ print int($1 * 100 / $2) }'`
+
+msg=""
+
+if [[ -n "$essid" ]]; then
+   msg+="\"$essid\" "
+fi
+
+if [[ -n "$strength" ]]; then
+   msg+="$strength% "
+fi
+
+echo $msg
+

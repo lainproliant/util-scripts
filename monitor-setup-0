@@ -1,0 +1,16 @@
+#!/bin/sh
+xrandr --output eDP-1-1 --set "PRIME Synchronization" 0
+sleep 2
+xrandr --output DP-0.1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0.2 --off --output DP-0 --off --output DP-1 --off --output HDMI-0 --off --output eDP-1-1 --off
+sleep 2
+nvidia-settings --assign "CurrentMetaMode=DP-0.1: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+
+# restart stuff
+sleep 2
+killall conky
+bash ~/.dotfiles/xinit/util/restore-desktop
+xmonad --restart
+bash ~/.conky/conky-startup.sh
+xrandr --output eDP-1-1 --set "PRIME Synchronization" 1
+
+# set metamodes
