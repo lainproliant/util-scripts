@@ -10,6 +10,7 @@ sleep 2
 killall conky
 bash ~/.dotfiles/xinit/util/restore-desktop
 xmonad --restart
+qtile-cmd -o cmd -f restart
 bash ~/.conky/conky-startup.sh
 xrandr --output eDP-1-1 --set "PRIME Synchronization" 1
 

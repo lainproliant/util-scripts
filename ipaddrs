@@ -4,26 +4,25 @@ import netifaces as ni
 import sys
 
 argv = sys.argv[1:]
-ifaces = ni.interfaces ()
+ifaces = ni.interfaces()
 exp_ifaces = []
 
 for arg in argv:
-   if len (arg) > 0 and arg[0] == '-':
-      if arg[1:] in ifaces:
-         ifaces.remove (arg[1:])
-   else:
-      exp_ifaces.append (arg)
+    if len(arg) > 0 and arg[0] == "-":
+        if arg[1:] in ifaces:
+            ifaces.remove(arg[1:])
+    else:
+        exp_ifaces.append(arg)
 
 if exp_ifaces:
-   ifaces = exp_ifaces
+    ifaces = exp_ifaces
 
 addrs = []
 
 for iface in ifaces:
-   ifaddrs = ni.ifaddresses (iface)
+    ifaddrs = ni.ifaddresses(iface)
 
-   if ni.AF_INET in ifaddrs:
-      addrs.append ((iface, ifaddrs [ni.AF_INET][0]['addr']))
+    if ni.AF_INET in ifaddrs:
+        addrs.append((iface, ifaddrs[ni.AF_INET][0]["addr"]))
 
-print (', '.join (["%s/%s" % x for x in addrs]))
-
+print(", ".join(["%s/%s" % x for x in addrs]))

@@ -1,4 +1,4 @@
 #!/bin/bash
 [[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_message_block.wav 2>/dev/null >/dev/null &
-rofi -show run -config ~/.config/rofi/base16.rasi
+PATH=$PATH:$HOME/.util rofi -show run -config ~/.config/rofi/base16.rasi
 [[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_midway_gate.wav
