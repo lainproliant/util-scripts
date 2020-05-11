@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while true; do
+rm -rf ~/.config/discord/{Cache,GPUCache};
+/usr/bin/discord;
+done
