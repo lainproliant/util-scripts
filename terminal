@@ -1,7 +1,7 @@
 #!/bin/bash
 [[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_power-up.wav 2>/dev/null >/dev/null&
 #kitty
-termite
+#termite
 #cool-retro-term
-#alacritty
+alacritty
 [[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_pipe.wav 2>/dev/null >/dev/null
