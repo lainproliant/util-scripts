@@ -1,0 +1,3 @@
+#!/bin/bash
+[[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_magikoopa_beam.wav 2>/dev/null >/dev/null&
+qutebrowser
