@@ -1,3 +1,3 @@
 #!/bin/sh
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}"  )" &> /dev/null && pwd  )
-xinput --enable `$SCRIPT_DIR/get_touchpad`
+xinput --list-props `$SCRIPT_DIR/get_touchpad` | grep Enabled | grep "1\$"

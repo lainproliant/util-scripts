@@ -1,0 +1,7 @@
+#!/bin/sh
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}"  )" &> /dev/null && pwd  )
+if [[ `$SCRIPT_DIR/is_touchpad_enabled` ]]; then
+   $SCRIPT_DIR/disable_touchpad
+else
+   $SCRIPT_DIR/enable_touchpad
+fi
