@@ -3,5 +3,5 @@
 #kitty
 #termite
 #cool-retro-term
-alacritty
+alacritty "$@"
 [[ -n $LAIN_SOUNDS ]] && aplay ~/.sounds/smw_pipe.wav 2>/dev/null >/dev/null
