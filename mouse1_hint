@@ -1,0 +1,2 @@
+#!/bin/sh
+warpd --click 1 --oneshot --hint2

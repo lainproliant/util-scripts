@@ -1,0 +1,2 @@
+#!/bin/sh
+warpd --click 3 --oneshot --normal
